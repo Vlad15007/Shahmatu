@@ -1,0 +1,8 @@
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\bin\Debug\Shahmatu.exe.config
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\bin\Debug\Shahmatu.exe
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\bin\Debug\Shahmatu.pdb
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\obj\Debug\Shahmatu.csproj.AssemblyReference.cache
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\obj\Debug\Shahmatu.csproj.SuggestedBindingRedirects.cache
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\obj\Debug\Shahmatu.csproj.CoreCompileInputs.cache
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\obj\Debug\Shahmatu.exe
+C:\Users\my comp\source\repos\Shahmatu\Shahmatu\obj\Debug\Shahmatu.pdb
