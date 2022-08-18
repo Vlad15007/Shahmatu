@@ -21,6 +21,9 @@ namespace Shahmatu
 
         };
 
+        static int X = 7;
+        static int Y = 7;
+
         static void Show()
         {
             for (int i = 0; i < map.GetLength(0); i++)
@@ -29,12 +32,11 @@ namespace Shahmatu
                 Console.Write("---------------------------------\n|");
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    
                     if (map[i, j] > 0)
                     {
                         if (map[i,j] % 2 == 0)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                         }
                         else
                         {
@@ -43,35 +45,46 @@ namespace Shahmatu
                     }
 
 
+                    if (Y == i && X == j)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(">");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+
+
 
 
                     if (map[i, j] == 1 || map[i, j] == 2 )
                     {
-                        Console.Write(" i ");
+                        Console.Write("i ");
                     }
                     else if (map[i, j] == 3 || map[i, j] == 4)
                     {
-                        Console.Write(" ■ ");
+                        Console.Write("■ ");
                     }
                     else if (map[i, j] == 5 || map[i, j] == 6)
                     {
-                        Console.Write(" $ ");
+                        Console.Write("$ ");
                     }
                     else if (map[i, j] == 7 || map[i, j] == 8)
                     {
-                        Console.Write(" + ");
+                        Console.Write("+ ");
                     }
                     else if (map[i, j] == 9 || map[i, j] == 10)
                     {
-                        Console.Write(" K ");
+                        Console.Write("K ");
                     }
                     else if (map[i, j] == 11 || map[i, j] == 12)
                     {
-                        Console.Write(" Q ");
+                        Console.Write("Q ");
                     }
                     else
                     {
-                        Console.Write("   ");
+                        Console.Write("  ");
                     }
 
 
@@ -82,10 +95,19 @@ namespace Shahmatu
             }
             Console.WriteLine("---------------------------------");
         }
+        
 
+        static void Init()
+        {
+            Console.CursorVisible = false;
+            Console.SetWindowSize(34, 19);
+            Console.SetBufferSize(34, 19);
+
+        }
 
         static void Main(string[] args)
         {
+            Init();
             Show();
             Console.ReadKey();
         }
