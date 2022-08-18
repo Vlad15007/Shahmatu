@@ -26,6 +26,7 @@ namespace Shahmatu
 
         static void Show()
         {
+            Console.Clear();
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 
@@ -94,6 +95,7 @@ namespace Shahmatu
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------");
+            Console.WriteLine(key);
         }
         
 
@@ -108,8 +110,36 @@ namespace Shahmatu
         static void Main(string[] args)
         {
             Init();
-            Show();
-            Console.ReadKey();
+
+            while(true)
+            {
+                Show();
+                ReadCursor();
+            }
+        }
+
+        static string key = "";
+
+        static void ReadCursor()
+        {
+            ConsoleKey keydown = Console.ReadKey().Key;
+
+            if (keydown == ConsoleKey.W || keydown == ConsoleKey.UpArrow)
+            {
+                key = "W";
+            }
+            else if(keydown == ConsoleKey.D)
+            {
+                key = "D";
+            }
+            else if (keydown == ConsoleKey.S)
+            {
+                key = "S";
+            }
+            else if (keydown == ConsoleKey.A)
+            {
+                key = "A";
+            }
         }
     }
 }
