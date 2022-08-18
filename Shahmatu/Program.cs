@@ -15,7 +15,7 @@ namespace Shahmatu
             { 0,  0,  0,  0,  0,  0,  0,  0},
             { 0,  0,  0,  0,  0,  0,  0,  0},
             { 0,  0,  0,  0,  0,  0,  0,  0},
-            { 0,  0,  0,  0,  0,  0,  0,  0},
+            { 0,  0,  0,  0,  0,  -1,  0,  0},
             { 2,  2,  2,  2,  2,  2,  2,  2},
             { 4,  6,  8,  12, 10, 8,  6,  4}
 
@@ -23,6 +23,9 @@ namespace Shahmatu
 
         static int X = 7;
         static int Y = 7;
+
+        static int checkX = -1;
+        static int checkY = -1;
 
         static void Show()
         {
@@ -58,8 +61,18 @@ namespace Shahmatu
 
 
 
+                    if (checkY == i && checkX == j)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                    }
 
-                    if (map[i, j] == 1 || map[i, j] == 2 )
+
+                    if(map[i, j] == -1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("* ");
+                    }
+                    else if(map[i, j] == 1 || map[i, j] == 2 )
                     {
                         Console.Write("i ");
                     }
@@ -95,7 +108,6 @@ namespace Shahmatu
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------");
-            Console.WriteLine(key);
         }
         
 
@@ -107,12 +119,53 @@ namespace Shahmatu
 
         }
 
+        static void CheckHod()
+        {
+            int figureX = -1;
+            int figureY = -1;
+            int fugure = -1;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if(i == checkY && j == checkX)
+                    {
+                        fugure = map[i, j];
+                        figureY = i;
+                        figureX = j;
+                    }
+                }
+            }
+
+            if(fugure == 2)
+            {
+                map[figureY - 1, figureX] = -1;
+            }
+        }
+
+        static void Clean()
+        {
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if (map[i, j] == -1)
+                    {
+                        map[i, j] = 0;
+                    }
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             Init();
 
             while(true)
             {
+                Clean();
+                CheckHod();
                 Show();
                 ReadCursor();
             }
@@ -131,6 +184,12 @@ namespace Shahmatu
             {
                 X += x;
             }
+        }
+
+        static void ChangeFigure()
+        {
+            checkX = X;
+            checkY = Y;
         }
 
 
@@ -153,6 +212,10 @@ namespace Shahmatu
             else if (keydown == ConsoleKey.A)
             {
                 ChangeCursor(0, -1);
+            }
+            else if (keydown == ConsoleKey.Spacebar)
+            {
+                ChangeFigure();
             }
         }
     }
