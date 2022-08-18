@@ -120,25 +120,39 @@ namespace Shahmatu
 
         static string key = "";
 
+        static void ChangeCursor(int y, int x)
+        {
+            if (Y + y >= 0 && Y + y < 8)
+            {
+                Y += y;
+            }
+
+            if (X + x >= 0 && X + x < 8)
+            {
+                X += x;
+            }
+        }
+
+
         static void ReadCursor()
         {
             ConsoleKey keydown = Console.ReadKey().Key;
 
             if (keydown == ConsoleKey.W || keydown == ConsoleKey.UpArrow)
             {
-                key = "W";
+                ChangeCursor(-1, 0);
             }
             else if(keydown == ConsoleKey.D)
             {
-                key = "D";
+                ChangeCursor(0, 1);
             }
             else if (keydown == ConsoleKey.S)
             {
-                key = "S";
+                ChangeCursor(1, 0);
             }
             else if (keydown == ConsoleKey.A)
             {
-                key = "A";
+                ChangeCursor(0, -1);
             }
         }
     }
