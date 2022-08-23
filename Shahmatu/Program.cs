@@ -201,15 +201,15 @@ namespace Shahmatu
             {
                 ChangeCursor(-1, 0);
             }
-            else if(keydown == ConsoleKey.D)
+            else if(keydown == ConsoleKey.D || keydown == ConsoleKey.RightArrow)
             {
                 ChangeCursor(0, 1);
             }
-            else if (keydown == ConsoleKey.S)
+            else if (keydown == ConsoleKey.S || keydown == ConsoleKey.DownArrow)
             {
                 ChangeCursor(1, 0);
             }
-            else if (keydown == ConsoleKey.A)
+            else if (keydown == ConsoleKey.A || keydown == ConsoleKey.LeftArrow)
             {
                 ChangeCursor(0, -1);
             }
