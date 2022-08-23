@@ -15,7 +15,7 @@ namespace Shahmatu
             { 0,  0,  0,  0,  0,  0,  0,  0},
             { 0,  0,  0,  0,  0,  0,  0,  0},
             { 0,  0,  0,  0,  0,  0,  0,  0},
-            { 0,  0,  0,  0,  0,  -1,  0,  0},
+            { 0,  0,  0,  0,  0,  1,  0,  0},
             { 2,  2,  2,  2,  2,  2,  2,  2},
             { 4,  6,  8,  12, 10, 8,  6,  4}
 
@@ -27,6 +27,8 @@ namespace Shahmatu
         static int checkX = -1;
         static int checkY = -1;
 
+        static int fugure = -1;
+
         static void Show()
         {
             Console.Clear();
@@ -36,16 +38,13 @@ namespace Shahmatu
                 Console.Write("---------------------------------\n|");
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] > 0)
+                    if (map[i,j] % 2 == 0)
                     {
-                        if (map[i,j] % 2 == 0)
-                        {
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                        }
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
                     }
 
 
@@ -66,8 +65,7 @@ namespace Shahmatu
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                     }
 
-
-                    if(map[i, j] == -1)
+                    if(map[i, j] == 100)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write("* ");
@@ -96,6 +94,31 @@ namespace Shahmatu
                     {
                         Console.Write("Q ");
                     }
+                    ////////////////////////////////////////////////////////////
+                    else if (map[i, j] == -1 || map[i, j] == -2)
+                    {
+                        Console.Write("i*");
+                    }
+                    else if (map[i, j] == -3 || map[i, j] == -4)
+                    {
+                        Console.Write("■*");
+                    }
+                    else if (map[i, j] == -5 || map[i, j] == -6)
+                    {
+                        Console.Write("$*");
+                    }
+                    else if (map[i, j] == -7 || map[i, j] == -8)
+                    {
+                        Console.Write("+*");
+                    }
+                    else if (map[i, j] == -9 || map[i, j] == -10)
+                    {
+                        Console.Write("K*");
+                    }
+                    else if (map[i, j] == -11 || map[i, j] == -12)
+                    {
+                        Console.Write("Q*");
+                    }
                     else
                     {
                         Console.Write("  ");
@@ -108,6 +131,7 @@ namespace Shahmatu
                 Console.WriteLine();
             }
             Console.WriteLine("---------------------------------");
+            Console.WriteLine(fugure + "   Y:" + Y + " X:" + X + "   YL:" + checkY + " XL:" + checkX);
         }
         
 
@@ -121,9 +145,9 @@ namespace Shahmatu
 
         static void CheckHod()
         {
+            int tochka = 100;
             int figureX = -1;
             int figureY = -1;
-            int fugure = -1;
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -140,8 +164,37 @@ namespace Shahmatu
 
             if(fugure == 2)
             {
-                map[figureY - 1, figureX] = -1;
+                if(map[figureY - 1, figureX] == 0)
+                {
+                    map[figureY - 1, figureX] = tochka;
+                }
+
+                if (map[figureY - 1, figureX - 1] != 0 && map[figureY - 1, figureX - 1] % 2 != 0)
+                {
+                    map[figureY - 1, figureX - 1] *= -1;
+                }
+                if (map[figureY - 1, figureX + 1] != 0 && map[figureY - 1, figureX + 1] % 2 != 0)
+                {
+                    map[figureY - 1, figureX + 1] *= -1;
+                }
             }
+            else if(fugure == 6)
+            {
+                map[figureY - 2, figureX - 1] = tochka;
+                map[figureY - 2, figureX + 1] = tochka;
+            }
+        }
+
+        static void ChangeHod()
+        {
+            map[checkY, checkX] = 0;
+            map[Y, X] = fugure;
+        }
+
+        static void AtackHod()
+        {
+            map[checkY, checkX] = 0;
+            map[Y, X] = fugure;
         }
 
         static void Clean()
@@ -150,9 +203,13 @@ namespace Shahmatu
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j] == -1)
+                    if (map[i, j] == 100)
                     {
                         map[i, j] = 0;
+                    }
+                    if (map[i, j] < 0)
+                    {
+                        map[i, j] *= -1;
                     }
                 }
             }
@@ -170,8 +227,6 @@ namespace Shahmatu
                 ReadCursor();
             }
         }
-
-        static string key = "";
 
         static void ChangeCursor(int y, int x)
         {
@@ -215,7 +270,18 @@ namespace Shahmatu
             }
             else if (keydown == ConsoleKey.Spacebar)
             {
-                ChangeFigure();
+                if (map[Y, X] == 100)
+                {
+                    ChangeHod();
+                }
+                else if (map[Y, X] < 0)
+                {
+                    AtackHod();
+                }
+                else
+                {
+                    ChangeFigure();
+                }
             }
         }
     }
